@@ -15,8 +15,8 @@ function minDistance(dist, sptSet) {
   let min_index = -1
 
   for (let v = 0; v < V; v++) {
-    if (sptSet[v] == false && dist[v] <= min) {
-      min = dist[v]
+    if (sptSet[v] == false && dist[v].value <= min) {
+      min = dist[v].value
       min_index = v
     }
   }
@@ -25,9 +25,11 @@ function minDistance(dist, sptSet) {
 
 // A utility function to print
 // the constructed distance array
-function printSolution(dist) {
+function printSolution(dist, src) {
   for (let i = 0; i < V; i++) {
-    console.log(`${i} - ${dist[i]}`)
+    console.log("_______________")
+    console.log(`${src}->${i}`)
+    console.log(dist[i])
   }
 }
 
@@ -38,17 +40,16 @@ function printSolution(dist) {
 function dijkstra(graph, src) {
   let dist = new Array(V)
   let sptSet = new Array(V)
-
   // Initialize all distances as
   // INFINITE and stpSet[] as false
   for (let i = 0; i < V; i++) {
-    dist[i] = Number.MAX_VALUE
+    dist[i] = { value: Number.MAX_VALUE, path: [i] }
     sptSet[i] = false
   }
 
   // Distance of source vertex
   // from itself is always 0
-  dist[src] = 0
+  dist[src].value = 0
 
   // Find shortest path for all vertices
   for (let count = 0; count < V - 1; count++) {
@@ -72,16 +73,17 @@ function dijkstra(graph, src) {
       if (
         !sptSet[v] &&
         graph[u][v] != 0 &&
-        dist[u] != Number.MAX_VALUE &&
-        dist[u] + graph[u][v] < dist[v]
+        dist[u].value != Number.MAX_VALUE &&
+        dist[u].value + graph[u][v] < dist[v].value
       ) {
-        dist[v] = dist[u] + graph[u][v]
+        dist[v].path = [...dist[u].path, v]
+        dist[v].value = dist[u].value + graph[u][v]
       }
     }
   }
 
   // Print the constructed distance array
-  printSolution(dist)
+  printSolution(dist, src)
 }
 
 // Driver code
@@ -99,3 +101,9 @@ let graph = [
 dijkstra(graph, 0)
 
 // This code is contributed by rag2127
+
+/*
+{
+
+}
+*/
