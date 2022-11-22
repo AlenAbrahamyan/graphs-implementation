@@ -16,11 +16,19 @@ function line(x1, y1, x2, y2) {
 }
 
 function drawConections() {
-  ctx.strokeStyle = "grey"
-  ctx.lineWidth = 5
   for (let i = 0; i < GRAPH.length; i++) {
     for (let j = 0; j < GRAPH.length; j++) {
       if (GRAPH[i][j] != 0) {
+        ctx.strokeStyle = "#eaeaea"
+        ctx.lineWidth = 12
+        line(
+          GRAPH_COORDS[i].x,
+          GRAPH_COORDS[i].y,
+          GRAPH_COORDS[j].x,
+          GRAPH_COORDS[j].y
+        )
+        ctx.strokeStyle = "white"
+        ctx.lineWidth = 8
         line(
           GRAPH_COORDS[i].x,
           GRAPH_COORDS[i].y,
@@ -32,13 +40,16 @@ function drawConections() {
   }
 }
 
-function drawGraphVertices(graph) {
+function drawGraphVertices() {
   for (let i = 0; i < GRAPH.length; i++) {
-    ctx.fillStyle = "grey"
+    ctx.fillStyle = "white"
+    ctx.strokeStyle = "grey"
+    ctx.lineWidth = 1
     ctx.beginPath()
     ctx.arc(GRAPH_COORDS[i].x, GRAPH_COORDS[i].y, 20, 0, 2 * Math.PI)
     ctx.fill()
-    ctx.fillStyle = "white"
+    ctx.stroke()
+    ctx.fillStyle = "grey"
     ctx.font = "30px Arial"
     ctx.fillText(i, GRAPH_COORDS[i].x - 10, GRAPH_COORDS[i].y + 10)
   }
@@ -60,6 +71,7 @@ function drawChoosedVertices() {
 function drawChoosedConections() {
   for (let i = 0; i < CHOOSED_PATH.length; i++) {
     ctx.strokeStyle = "#10adf8"
+    ctx.lineWidth = 5
     const point1 = GRAPH_COORDS[CHOOSED_PATH[i]]
     const point2 = GRAPH_COORDS[CHOOSED_PATH[i + 1]]
 
