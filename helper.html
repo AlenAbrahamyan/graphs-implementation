@@ -1,0 +1,237 @@
+<style>
+  body{
+    background-color: rgb(172, 172, 172);
+  }
+</style>
+
+<img
+  class="imgs"
+  src="https://www.geeksforgeeks.org/wp-content/uploads/Fig-11.jpg"
+/>
+<table>
+  <tr></tr>
+  <tr></tr>
+  <tr></tr>
+  <tr></tr>
+  <tr></tr>
+  <tr></tr>
+  <tr></tr>
+  <tr></tr>
+  <tr></tr>
+  <tr></tr>
+</table>
+
+<script>
+  // A Javascript program for Dijkstra's single
+  // source shortest path algorithm.
+  // The program is for adjacency matrix
+  // representation of the graph
+  let V = 9
+
+  function minDistance(dist, sptSet) {
+    // Initialize min value
+    let min = Number.MAX_VALUE
+    let min_index = -1
+
+    for (let v = 0; v < V; v++) {
+      if (sptSet[v] == false && dist[v] <= min) {
+        min = dist[v]
+        min_index = v
+      }
+    }
+    return min_index
+  }
+
+  // A utility function to print
+  // the constructed distance array
+  function printSolution(dist) {
+    document.write("Vertex \t\t Distance from Source<br>")
+    for (let i = 0; i < V; i++) {
+      document.write(i + " \t\t " + dist[i] + "<br>")
+    }
+  }
+
+  // Function that implements Dijkstra's
+  // single source shortest path algorithm
+  // for a graph represented using adjacency
+  // matrix representation
+  function dijkstra(graph, src) {
+    let dist = new Array(V)
+    let sptSet = new Array(V)
+
+    // Initialize all distances as
+    // INFINITE and stpSet[] as false
+    for (let i = 0; i < V; i++) {
+      dist[i] = Number.MAX_VALUE
+      sptSet[i] = false
+    }
+
+    // Distance of source vertex
+    // from itself is always 0
+    dist[src] = 0
+
+    // Find shortest path for all vertices
+    for (let count = 0; count < V - 1; count++) {
+      // Pick the minimum distance vertex
+      // from the set of vertices not yet
+      // processed. u is always equal to
+      // src in first iteration.
+      let u = minDistance(dist, sptSet)
+
+      // Mark the picked vertex as processed
+      sptSet[u] = true
+
+      // Update dist value of the adjacent
+      // vertices of the picked vertex.
+      for (let v = 0; v < V; v++) {
+        // Update dist[v] only if is not in
+        // sptSet, there is an edge from u
+        // to v, and total weight of path
+        // from src to v through u is smaller
+        // than current value of dist[v]
+        if (
+          !sptSet[v] &&
+          graph[u][v] != 0 &&
+          dist[u] != Number.MAX_VALUE &&
+          dist[u] + graph[u][v] < dist[v]
+        ) {
+          dist[v] = dist[u] + graph[u][v]
+        }
+      }
+    }
+
+    // Print the constructed distance array
+    printSolution(dist)
+  }
+
+  // Driver code
+  let graph = [
+    [0, 4, 0, 0, 0, 0, 0, 8, 0],
+    [4, 0, 8, 0, 0, 0, 0, 11, 0],
+    [0, 8, 0, 7, 0, 4, 0, 0, 2],
+    [0, 0, 7, 0, 9, 14, 0, 0, 0],
+    [0, 0, 0, 9, 0, 10, 0, 0, 0],
+    [0, 0, 4, 14, 10, 0, 2, 0, 0],
+    [0, 0, 0, 0, 0, 2, 0, 1, 6],
+    [8, 11, 0, 0, 0, 0, 1, 0, 7],
+    [0, 0, 2, 0, 0, 0, 6, 7, 0],
+  ]
+  dijkstra(graph, 5)
+
+  let graph2 = [
+    [".", "0", "1", "2", "3", "4", "5", "6", "7", "8"],
+    ["0", 0, 4, 0, 0, 0, 0, 0, 8, 0],
+    ["1", 4, 0, 8, 0, 0, 0, 0, 11, 0],
+    ["2", 0, 8, 0, 7, 0, 4, 0, 0, 2],
+    ["3", 0, 0, 7, 0, 9, 14, 0, 0, 0],
+    ["4", 0, 0, 0, 9, 0, 10, 0, 0, 0],
+    ["5", 0, 0, 4, 14, 10, 0, 2, 0, 0],
+    ["6", 0, 0, 0, 0, 0, 2, 0, 1, 6],
+    ["7", 8, 11, 0, 0, 0, 0, 1, 0, 7],
+    ["8", 0, 0, 2, 0, 0, 0, 6, 7, 0],
+  ]
+
+  for (let i = 0; i < 10; i++) {
+    const td = document.getElementsByTagName("tr")[i]
+    for (let j = 0; j < 10; j++) {
+      if (typeof graph2[i][j] === "number") {
+        td.innerHTML += `<td class="t${graph2[i][j]}">${graph2[i][j]}</td>`
+      } else {
+        td.innerHTML += `<td class="index">${graph2[i][j]}</td>`
+      }
+    }
+  }
+
+  // This code is contributed by rag2127
+</script>
+
+<style>
+  .imgs {
+    width: 500px;
+  }
+  td {
+    border: 1px black solid;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+  }
+
+  .index {
+    border: none;
+    font-size: 15px;
+    background-color: aqua;
+    font-weight: 700;
+    border-radius: 50%;
+  }
+
+  .t1 {
+    background-color: rgb(130, 189, 241);
+  }
+
+  .t2 {
+    background-color: rgb(15, 255, 163);
+  }
+  .t4 {
+    background-color: rgb(255, 186, 97);
+  }
+  .t6 {
+    background-color: rgb(166, 10, 161);
+  }
+  .t7 {
+    background-color: rgb(170, 184, 69);
+  }
+  .t8 {
+    background-color: rgb(100, 248, 1);
+  }
+  .t9 {
+    background-color: rgb(0, 125, 100);
+  }
+
+  .t10 {
+    background-color: rgb(255, 6, 6);
+  }
+  .t11 {
+    background-color: rgb(8, 0, 255);
+  }
+  .t12 {
+    background-color: rgb(0, 131, 35);
+  }
+  .t14 {
+    background-color: rgb(155, 53, 119);
+  }
+</style>
+<!-- <style>
+  #cube {
+    width: 50px;
+    height: 50px;
+    background-color: rebeccapurple;
+    position: absolute;
+    border-radius: 50%;
+  }
+</style>
+
+<div id="cube"></div>
+
+<script>
+  const cube = document.getElementById("cube")
+  cube.style.top = 0
+
+  let vertSpeed = 0
+  const deltaTime = 0.4
+  const jumpSpeed = -5
+  const fallingConstant = 0.6
+
+  function Update() {
+    cube.style.top = parseInt(cube.style.top) + vertSpeed * deltaTime
+    vertSpeed += fallingConstant * deltaTime
+    requestAnimationFrame(Update)
+  }
+
+  window.addEventListener("click", () => {
+    vertSpeed = jumpSpeed
+  })
+
+  Update()
+</script> -->

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Գրաֆներով Քարտեզ</title>
+    <style>
+      #control-panel{
+        font-size: 20px;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="map-canvas"></canvas>
+    </br>
+
+    <div id="control-panel">
+      <label>Սկզբնակետ:</label>
+      <select id="from-selector">
+        <option value=0>0</option>
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>5</option>
+        <option value=6>6</option>
+        <option value=7>7</option>
+        <option value=8>8</option>
+      </select>
+      <label >Վերջնակետ:</label>
+      <select id="to-selector">
+        <option value=0>0</option>
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>5</option>
+        <option value=6>6</option>
+        <option value=7>7</option>
+        <option value=8>8</option>
+      </select>
+    </div>
+
+    <script src="./scripts/graph.js"></script>
+    <script src="./scripts/controlPanel.js"></script>
+    <script src="./scripts/canvasDrawer.js"></script>
+  </body>
+</html>
