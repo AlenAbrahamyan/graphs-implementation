@@ -4,45 +4,60 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Գրաֆներով Քարտեզ</title>
+    <title>Քարտեզ Գրաֆների Ալգորիթմով</title>
     <style>
-      #control-panel{
-        font-size: 20px;
+      body {
         font-family: Arial, Helvetica, sans-serif;
+        background-color: #e6e6e6;
+      }
+      #control-panel {
+        font-size: 30px;
+        margin-top: 20px;
+      }
+      select {
+        font-size: 30px;
+      }
+      canvas {
+        width: 800px;
+        box-shadow: 0px 0px 5px 1px grey;
+      }
+      #app-title{
+        margin-top: 50px;
       }
     </style>
   </head>
   <body>
-    <canvas id="map-canvas"></canvas>
-    </br>
+    <center>
+      <h1 id="app-title">Քարտեզ Գրաֆների Ալգորիթմով</h1>
+      <canvas id="map-canvas"></canvas>
 
-    <div id="control-panel">
-      <label>Սկզբնակետ:</label>
-      <select id="from-selector">
-        <option value=0>0</option>
-        <option value=1>1</option>
-        <option value=2>2</option>
-        <option value=3>3</option>
-        <option value=4>4</option>
-        <option value=5>5</option>
-        <option value=6>6</option>
-        <option value=7>7</option>
-        <option value=8>8</option>
-      </select>
-      <label >Վերջնակետ:</label>
-      <select id="to-selector">
-        <option value=0>0</option>
-        <option value=1>1</option>
-        <option value=2>2</option>
-        <option value=3>3</option>
-        <option value=4>4</option>
-        <option value=5>5</option>
-        <option value=6>6</option>
-        <option value=7>7</option>
-        <option value=8>8</option>
-      </select>
-    </div>
-
+      <div id="control-panel">
+        <label>Սկզբնակետ:</label>
+        <select id="from-selector">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
+        <label>Վերջնակետ:</label>
+        <select id="to-selector">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
+      </div>
+    </center>
     <script src="./scripts/graph.js"></script>
     <script src="./scripts/controlPanel.js"></script>
     <script src="./scripts/canvasDrawer.js"></script>

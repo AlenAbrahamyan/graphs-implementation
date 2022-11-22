@@ -5,8 +5,11 @@ const ctx = canvas.getContext("2d")
 canvas.width = 1100
 canvas.height = 600
 
+const locationIcon = new Image()
+locationIcon.src = "./images/location.png"
+
 const background = new Image()
-background.src = "./background.png"
+background.src = "./images/background.png"
 
 function line(x1, y1, x2, y2) {
   ctx.beginPath()
@@ -42,9 +45,9 @@ function drawConections() {
 
 function drawGraphVertices() {
   for (let i = 0; i < GRAPH.length; i++) {
-    ctx.fillStyle = "white"
+    ctx.fillStyle = "rgb(120, 120, 120, 0.3)"
     ctx.strokeStyle = "grey"
-    ctx.lineWidth = 1
+    ctx.lineWidth = 2.5
     ctx.beginPath()
     ctx.arc(GRAPH_COORDS[i].x, GRAPH_COORDS[i].y, 20, 0, 2 * Math.PI)
     ctx.fill()
@@ -66,12 +69,18 @@ function drawChoosedVertices() {
     ctx.font = "30px Arial"
     ctx.fillText(CHOOSED_PATH[i], x - 10, y + 10)
   }
+
+  const toData = CHOOSED_PATH[CHOOSED_PATH.length - 1]
+  if (GRAPH_COORDS[toData]) {
+    const { x, y } = GRAPH_COORDS[toData]
+    ctx.drawImage(locationIcon, x - 15, y - 55, 30, 40)
+  }
 }
 
 function drawChoosedConections() {
   for (let i = 0; i < CHOOSED_PATH.length; i++) {
     ctx.strokeStyle = "#10adf8"
-    ctx.lineWidth = 5
+    ctx.lineWidth = 8
     const point1 = GRAPH_COORDS[CHOOSED_PATH[i]]
     const point2 = GRAPH_COORDS[CHOOSED_PATH[i + 1]]
 
