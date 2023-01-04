@@ -1,28 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="./style.css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Քարտեզ Գրաֆների Ալգորիթմով</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #e6e6e6;
+      }
+      #control-panel {
+        font-size: 30px;
+        margin-top: 20px;
+      }
+      select {
+        font-size: 30px;
+      }
+      canvas {
+        width: 800px;
+        box-shadow: 0px 0px 5px 1px grey;
+      }
+      #app-title{
+        margin-top: 50px;
+      }
+    </style>
   </head>
-
   <body>
     <center>
-      <h1>Ինտերակտիվ Քարտեզ Գրաֆներով</h1>
-      <canvas id="map"></canvas>
+      <h1 id="app-title">Քարտեզ Գրաֆների Ալգորիթմով</h1>
+      <canvas id="map-canvas"></canvas>
+
       <div id="control-panel">
         <label>Սկզբնակետ:</label>
-        <select id="from-selector"></select>
+        <select id="from-selector">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
         <label>Վերջնակետ:</label>
-        <select id="to-selector"></select>
+        <select id="to-selector">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+        </select>
       </div>
-      <h3 id="notFoundPath">Ճանապարհ Չի Գտնվել Նշված Գագաթներով</h3>
-      <br /><br />
-      <hr />
-      <h1>Հարևանության Մատրիցի Վահանակ</h1>
-      <div id="adjacencyMatrixController"></div>
     </center>
-    <script src="./scripts/graphs.js"></script>
-    <script src="./scripts/main.js"></script>
+    <script src="./scripts/graph.js"></script>
+    <script src="./scripts/controlPanel.js"></script>
+    <script src="./scripts/canvasDrawer.js"></script>
   </body>
 </html>
