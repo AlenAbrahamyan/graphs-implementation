@@ -1,2 +1,0 @@
-# graphs-implementation
-Graphs implementation
