@@ -22,6 +22,10 @@ GRAPH = {
       this.verticesCoords[to]
     )
   },
+  createTwoSidedEdge: function (v1, v2) {
+    this.createEdge(v1, v2)
+    this.createEdge(v2, v1)
+  },
   getPath: function (from, to) {
     return dijkstra(this.adjacencyMatrix, from)[to]
   },

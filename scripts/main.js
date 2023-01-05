@@ -12,7 +12,30 @@ locationIcon.src = "./images/location.png"
 const background = new Image()
 background.src = "./images/background.png"
 
+const interactiveParams = {
+  targetingVertex: null,
+  selectedVertex: null,
+  mouse: { x: 0, y: 0 },
+}
+
 let highlightingPath
+
+function checkingTargetingVertex() {
+  requestAnimationFrame(checkingTargetingVertex)
+  interactiveParams.targetingVertex = null
+  for (let i = 0; i < GRAPH.verticesCoords.length; i++) {
+    const mouseDistance =
+      ((interactiveParams.mouse.x - GRAPH.verticesCoords[i].x) ** 2 +
+        (interactiveParams.mouse.y - GRAPH.verticesCoords[i].y) ** 2) **
+      (1 / 2)
+    if (mouseDistance < 20) {
+      interactiveParams.targetingVertex = {
+        index: i,
+        coord: GRAPH.verticesCoords[i],
+      }
+    }
+  }
+}
 
 function drawHighlightingPath() {
   if (highlightingPath.value === Number.MAX_VALUE) {
@@ -118,11 +141,38 @@ function drawGraph() {
   drawVertices()
 }
 
+function drawHoveringVertex() {
+  ctx.strokeStyle = "red"
+  ctx.lineWidth = 4
+  ctx.beginPath()
+  ctx.arc(
+    interactiveParams.targetingVertex.coord.x,
+    interactiveParams.targetingVertex.coord.y,
+    20,
+    0,
+    2 * Math.PI
+  )
+  ctx.stroke()
+}
+
+function drawPotentialConnection() {
+  ctx.strokeStyle = "#ffffff"
+  ctx.lineWidth = 12
+  line(
+    interactiveParams.mouse.x,
+    interactiveParams.mouse.y,
+    interactiveParams.selectedVertex.coord.x,
+    interactiveParams.selectedVertex.coord.y
+  )
+}
+
 function drawMap() {
   requestAnimationFrame(drawMap)
   ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
+  interactiveParams.selectedVertex && drawPotentialConnection()
   drawGraph()
   highlightingPath && drawHighlightingPath()
+  interactiveParams.targetingVertex && drawHoveringVertex()
 }
 
 function renderAdjacencyMatrixController() {
@@ -177,14 +227,47 @@ fromSelector.onchange = updateMapCanvas
 toSelector.onchange = updateMapCanvas
 
 canvas.addEventListener("click", (e) => {
+  if (interactiveParams.targetingVertex) {
+    if (interactiveParams.selectedVertex) {
+      GRAPH.createTwoSidedEdge(
+        interactiveParams.targetingVertex.index,
+        interactiveParams.selectedVertex.index
+      )
+      interactiveParams.selectedVertex = null
+    } else {
+      interactiveParams.selectedVertex = {
+        ...interactiveParams.targetingVertex,
+      }
+    }
+
+    renderAdjacencyMatrixController()
+    return
+  }
+
   if (GRAPH.verticesCoords.length > GRAPH.maxVertexCount) {
     alert(GRAPH.maxVertexCount + " գրաֆի գագաթից ավել չեք կարող ավելացնել")
     return
   }
+
   GRAPH.addVertex(e.offsetX, e.offsetY)
+
+  if (interactiveParams.selectedVertex) {
+    const newVertexIndex = GRAPH.verticesCoords.length - 1
+    GRAPH.createTwoSidedEdge(
+      newVertexIndex,
+      interactiveParams.selectedVertex.index
+    )
+    interactiveParams.selectedVertex = null
+  }
+
   renderAdjacencyMatrixController()
   fillSelectorItems(fromSelector)
   fillSelectorItems(toSelector)
 })
 
+canvas.addEventListener("mousemove", (e) => {
+  interactiveParams.mouse = { x: e.offsetX, y: e.offsetY }
+})
+
+checkingTargetingVertex()
 drawMap()
