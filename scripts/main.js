@@ -98,7 +98,7 @@ function line(x1, y1, x2, y2) {
   ctx.stroke()
 }
 
-function drawConections() {
+function drawConnections() {
   for (let i = 0; i < GRAPH.verticesCoords.length; i++) {
     for (let j = 0; j < GRAPH.verticesCoords.length; j++) {
       if (GRAPH.adjacencyMatrix[i][j] != 0) {
@@ -137,7 +137,7 @@ function drawVertices() {
 }
 
 function drawGraph() {
-  drawConections()
+  drawConnections()
   drawVertices()
 }
 
