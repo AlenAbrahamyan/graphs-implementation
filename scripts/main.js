@@ -5,7 +5,7 @@ const canvas = document.getElementById("map")
 const ctx = canvas.getContext("2d")
 canvas.width = 1100
 canvas.height = 600
-//
+
 const locationIcon = new Image()
 locationIcon.src = "./images/location.png"
 
