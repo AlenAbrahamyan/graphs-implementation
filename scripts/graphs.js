@@ -1,4 +1,3 @@
-////
 GRAPH = {
   maxVertexCount: 30,
   verticesCoords: [],
